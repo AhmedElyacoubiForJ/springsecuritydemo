@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: springsecuritydemo
+  output:
+    ansi:
+      enabled: always
+  main:
+    banner-mode: off
+logging:
+  level:
+    org:
+      springframework:
+        security: trace

@@ -3,6 +3,7 @@ images/SpringSecurityFlow.png
 images/SpringSecurityFlow_2.jpg
 images/SpringSecuritySpringMVC.png
 images/JwtTokenFilter.png
+images/JwtAuthenticationProvider.png
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

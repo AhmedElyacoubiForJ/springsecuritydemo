@@ -2,6 +2,7 @@ HELP.md
 images/SpringSecurityFlow.png
 images/SpringSecurityFlow_2.jpg
 images/SpringSecuritySpringMVC.png
+images/JwtTokenFilter.png
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

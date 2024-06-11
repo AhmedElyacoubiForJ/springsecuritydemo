@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -18,7 +19,7 @@ public class Patient {
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String name;
-    private Date birthDate;
+    private LocalDate birthday;
     private boolean isSick;
     private int score;
 }

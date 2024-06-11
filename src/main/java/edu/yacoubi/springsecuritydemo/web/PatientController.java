@@ -2,7 +2,6 @@ package edu.yacoubi.springsecuritydemo.web;
 
 import edu.yacoubi.springsecuritydemo.entites.Patient;
 import edu.yacoubi.springsecuritydemo.repository.PatientRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -35,10 +32,10 @@ public class PatientController {
         return "patients";
     }
     @GetMapping("/delete")
-    public String delete(Model model,
-                         Long id,
-                         @RequestParam(name = "keyword") String keyword ,
-                         @RequestParam(name = "page") int currentPage) {
+    public String delete(
+            @RequestParam(name = "id") Long id,
+            @RequestParam(name = "keyword", defaultValue = "") String keyword ,
+            @RequestParam(name = "page", defaultValue = "0") int currentPage) {
         patientRepository.deleteById(id);
         return "redirect:/index?page=" + currentPage + "&keyword=" + keyword;
     }

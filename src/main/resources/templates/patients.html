@@ -1,75 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template.html">
+>
 <head>
     <meta charset="UTF-8">
     <title>Hospital</title>
     <link rel="stylesheet"
           href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet"
-          href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" >
+          href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 
     <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="p-3">
-    <div class="card">
-        <div class="card-header">Patients List</div>
-        <div class="card-body">
-            <!-- search -->
-            <form class="from" method="get" th:action="@{/index}">
-                <label>Keyword:</label>
-                <input type="text" name="keyword" th:value="${keyword}">
-                <button type="submit" class="btn btn-info">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
+<div layout:fragment="content">
+    <div class="p-3">
+        <div class="card">
+            <div class="card-header">Patients List</div>
+            <div class="card-body">
+                <!-- search -->
+                <form class="from" method="get" th:action="@{/index}">
+                    <label>Keyword:</label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-info">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Birthday</th>
-                    <th>Sick</th>
-                    <th>Score</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="patient : ${patientsPage}">
-                    <td th:text="${patient.id}"></td>
-                    <td th:text="${patient.name}"></td>
-                    <td th:text="${patient.birthday}"></td>
-                    <td th:text="${patient.sick}"></td>
-                    <td th:text="${patient.score}"></td>
-                    <td>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>Sick</th>
+                        <th>Score</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="patient : ${patientsPage}">
+                        <td th:text="${patient.id}"></td>
+                        <td th:text="${patient.name}"></td>
+                        <td th:text="${patient.birthday}"></td>
+                        <td th:text="${patient.sick}"></td>
+                        <td th:text="${patient.score}"></td>
+                        <td>
+                            <a
+                                    onclick="javascript:return confirm('Please confirm before to delete?')"
+                                    th:href="@{/delete( id=${patient.id}, keyword=${keyword}, page=${currentPage} )}"
+                                    class="btn btn-danger"
+                            >
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Pagination -->
+                <ul class="nav nav-pills">
+                    <li th:each="value,item: ${totalPages}">
+                        <!-- item.index corresponds the index of the element in the current loop step
+                             over the array totalPages int [].
+                        -->
                         <a
-                                onclick="javascript:return confirm('Please confirm before to delete?')"
-                                th:href="@{/delete( id=${patient.id}, keyword=${keyword}, page=${currentPage} )}"
-                                class="btn btn-danger"
-                        >
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <!-- Pagination -->
-            <ul class="nav nav-pills">
-                <li th:each="value,item: ${totalPages}">
-                    <!-- item.index corresponds the index of the element in the current loop step
-                         over the array totalPages int [].
-                    -->
-                    <a
-                            th:href="@{/index(page=${item.index})}"
-                            th:class="${ (currentPage == item.index) ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
-                            th:text="${1 + item.index}"
-                    ></a>
-                </li>
-            </ul>
+                                th:href="@{/index(page=${item.index})}"
+                                th:class="${ (currentPage == item.index) ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
+                                th:text="${1 + item.index}"
+                        ></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

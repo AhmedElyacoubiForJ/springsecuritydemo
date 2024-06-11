@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="patient : ${patients}">
+                <tr th:each="patient : ${patientsPage}">
                     <td th:text="${patient.id}"></td>
                     <td th:text="${patient.name}"></td>
                     <td th:text="${patient.birthday}"></td>

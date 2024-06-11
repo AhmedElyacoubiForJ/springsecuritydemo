@@ -9,11 +9,21 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: jdbc:h2:mem:patients-db
-  h2:
-    console:
-      enabled: true
-      path: /console
+    url: jdbc:mysql://localhost:3306/hospital_db?createDatabaseIfNotExist=true
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        format_sql: true
 #  security:
 #    user:
 #     name: user

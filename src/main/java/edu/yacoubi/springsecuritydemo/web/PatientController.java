@@ -8,12 +8,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
 public class PatientController {
     private final PatientRepository patientRepository;
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/index";
+    }
 
     @GetMapping("/index")
     public String index(Model model,
@@ -39,8 +45,16 @@ public class PatientController {
         patientRepository.deleteById(id);
         return "redirect:/index?page=" + currentPage + "&keyword=" + keyword;
     }
-    @GetMapping("/")
-    public String home() {
+
+    @GetMapping("/patient-form")
+    public String patientForm(Model model) {
+        model.addAttribute("patient", new Patient());
+        return "patient-form";
+    }
+
+    @PostMapping("/savePatient")
+    public String savePatient(Patient patient) {
+        patientRepository.save(patient);
         return "redirect:/index";
     }
 }

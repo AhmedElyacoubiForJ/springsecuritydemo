@@ -2,6 +2,7 @@ package edu.yacoubi.springsecuritydemo.web;
 
 import edu.yacoubi.springsecuritydemo.entites.Patient;
 import edu.yacoubi.springsecuritydemo.repository.PatientRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,10 +20,13 @@ public class PatientController {
 
     @GetMapping("/index")
     public String index(Model model,
-                        @RequestParam(name = "page", defaultValue = "0") int page,
-                        @RequestParam(name = "size", defaultValue = "4") int size) {
-        Page<Patient> patientsPage = patientRepository.findAll(PageRequest.of(page, size));
+                        @RequestParam(name = "page", defaultValue = "0") int p,
+                        @RequestParam(name = "size", defaultValue = "4") int s) {
+        Page<Patient> patientsPage = patientRepository.findAll(PageRequest.of(p, s));
         model.addAttribute("patientsPage", patientsPage.getContent());
+        //
+        model.addAttribute("totalPages", new int[patientsPage.getTotalPages()]);
+        //System.out.println(patientsPage.getTotalPages());
         return "patients";
     }
 }

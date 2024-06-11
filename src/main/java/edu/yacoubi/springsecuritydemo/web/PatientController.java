@@ -34,4 +34,16 @@ public class PatientController {
         //
         return "patients";
     }
+    @GetMapping("/delete")
+    public String delete(Model model,
+                         Long id,
+                         @RequestParam(name = "keyword") String keyword ,
+                         @RequestParam(name = "page") int currentPage) {
+        patientRepository.deleteById(id);
+        return "redirect:/index?page=" + currentPage + "&keyword=" + keyword;
+    }
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/index";
+    }
 }

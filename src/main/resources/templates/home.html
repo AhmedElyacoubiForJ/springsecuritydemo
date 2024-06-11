@@ -12,5 +12,9 @@ Hello
     <p th:text="${#authentication.name}"></p>
 </div>
 
+<div sec:authorize="isAuthenticated()">
+    <a href="#" th:href="@{/logout}" >Logout</a>
+</div>
+
 </body>
 </html>

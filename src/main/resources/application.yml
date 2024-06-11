@@ -1,17 +1,25 @@
+server:
+  port: 8088
 spring:
   application:
-    name: springsecuritydemo
+    name: hospitalspringsecuritydemo
   output:
     ansi:
       enabled: always
   main:
     banner-mode: off
-  security:
-    user:
-      name: user
-      password: user
-logging:
-  level:
-    org:
-      springframework:
-        security: TRACE
+  datasource:
+    url: jdbc:h2:mem:patients-db
+  h2:
+    console:
+      enabled: true
+      path: /console
+#  security:
+#    user:
+#     name: user
+#      password: user
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: TRACE

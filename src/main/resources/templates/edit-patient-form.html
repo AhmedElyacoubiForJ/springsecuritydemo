@@ -19,9 +19,9 @@
                     <div class="p-3">
                         <form th:action="@{/savePatient}" method="post">
                             <div class="mb-3 mt-3">
-                                <label for="id" class="form-label">ID</label>
+                                <label for="id" class="form-label">ID</label>:<label class="form-label" th:text="${patient.id}"></label>
                                 <input
-                                        type="text"
+                                        type="hidden"
                                         class="form-control"
                                         id="id"
                                         name="id"
@@ -86,7 +86,7 @@
                                         th:errors="${patient.score}"
                                 ></span>
                             </div>
-                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="submit" class="btn btn-success">Update</button>
                         </form>
                     </div>
                 </div>

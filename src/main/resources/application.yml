@@ -24,9 +24,13 @@ spring:
       hibernate:
         globally_quoted_identifiers: true
         format_sql: true
+  thymeleaf:
+#    cache: false #don't need to use it, dev web tools take charge
+#    format:
+#      date: yyyy-mm-dd
 #  security:
 #    user:
-#     name: user
+#      name: user
 #      password: user
 #logging:
 #  level:

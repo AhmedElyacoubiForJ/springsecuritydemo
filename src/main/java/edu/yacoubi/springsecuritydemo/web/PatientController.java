@@ -61,6 +61,14 @@ public class PatientController {
             return "patient-form";
         }
         patientRepository.save(patient);
-        return "patient-form";
+        return "redirect:/index?keyword=" + patient.getName();
+    }
+
+    @GetMapping("/editPatient")
+    public String editPatient(Model model, @RequestParam(name = "id") Long id) {
+        Patient patient = patientRepository.findById(id).get();
+        model.addAttribute("patient", patient);
+
+        return "edit-patient-form";
     }
 }

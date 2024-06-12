@@ -24,13 +24,14 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-//            patientRepository.save( new Patient(null, "John", LocalDate.of(1970, Month.NOVEMBER, 12), false, 26) );
-//            patientRepository.save( new Patient(null, "Jane", LocalDate.of(2010, Month.JANUARY, 28), false, 3) );
-//            patientRepository.save( new Patient(null, "Jack", LocalDate.of(1999, Month.MAY, 9), true, 54) );
-//            patientRepository.save( new Patient(null, "Jill", LocalDate.of(2001, Month.JULY, 10), false, 101) );
-//
+//            patientRepository.save( new Patient(null, "Steve McQueen", LocalDate.of(1930, Month.MARCH, 24), false, 26) );
+//            patientRepository.save( new Patient(null, "Jesse James", LocalDate.of(1847, Month.SEPTEMBER, 5), false, 50) );
+//            patientRepository.save( new Patient(null, "John Wayne", LocalDate.of(1907, Month.JUNE, 26), true, 54) );
+//            patientRepository.save( new Patient(null, "Robert Mitchum", LocalDate.of(1917, Month.AUGUST, 17), false, 101) );
+//            patientRepository.save( new Patient(null, "Paul Newman", LocalDate.of(1917, Month.JANUARY, 26), false, 101) );
+//            patientRepository.save( new Patient(null, "Audie Murphy", LocalDate.of(1925, Month.JUNE, 20), false, 343) );
+
 //            patientRepository.findAll().forEach(System.out::println);
         };
     }
-
 }

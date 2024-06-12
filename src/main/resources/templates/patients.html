@@ -31,7 +31,7 @@
                         <th>Birthday</th>
                         <th>Sick</th>
                         <th>Score</th>
-                        <th>Action</th>
+                        <th colspan="2">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,6 +48,14 @@
                                     class="btn btn-danger"
                             >
                                 <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a
+                                    th:href="@{/editPatient(id=${patient.id})}"
+                                    class="btn btn-success"
+                            >
+                                <i class="bi bi-pen"></i>
                             </a>
                         </td>
                     </tr>

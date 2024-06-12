@@ -9,7 +9,7 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: jdbc:mysql://localhost:3306/hospital_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/hospital_db?createDatabaseIfNotExist=true #createDatabase=true #createDatabaseIfNotExist=true
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver

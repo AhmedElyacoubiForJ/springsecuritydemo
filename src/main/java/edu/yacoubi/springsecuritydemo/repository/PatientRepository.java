@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     Page<Patient> findByNameContains(String keyword, Pageable pageable);
-
+/*
     @Query("SELECT p FROM Patient p WHERE p.name LIKE :x")
-    Page<Patient> search(@Param("x") String keyword, Pageable pageable);
+    Page<Patient> search(@Param("x") String keyword, Pageable pageable);*/
 }

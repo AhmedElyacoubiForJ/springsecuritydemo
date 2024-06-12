@@ -17,7 +17,7 @@
                 <div class="card-header">Add new Patient</div>
                 <div class="card-body">
                     <div class="p-3">
-                        <form th:action="@{/savePatient}" method="post">
+                        <form th:action="@{/admin/savePatient}" method="post">
                             <div class="mb-3 mt-3">
                                 <label for="id" class="form-label">ID</label>:<label class="form-label" th:text="${patient.id}"></label>
                                 <input

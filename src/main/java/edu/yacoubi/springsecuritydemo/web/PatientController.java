@@ -20,10 +20,10 @@ public class PatientController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "0") int currentPage,
                         @RequestParam(name = "size", defaultValue = "4") int size,
@@ -39,32 +39,32 @@ public class PatientController {
         //
         return "patients";
     }
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String delete(
             @RequestParam(name = "id") Long id,
             @RequestParam(name = "keyword", defaultValue = "") String keyword ,
             @RequestParam(name = "page", defaultValue = "0") int currentPage) {
         patientRepository.deleteById(id);
-        return "redirect:/index?page=" + currentPage + "&keyword=" + keyword;
+        return "redirect:/user/index?page=" + currentPage + "&keyword=" + keyword;
     }
 
-    @GetMapping("/patient-form")
+    @GetMapping("/admin/patient-form")
     public String patientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "patient-form";
     }
 
-    @PostMapping("/savePatient")
+    @PostMapping("/admin/savePatient")
     public String savePatient(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //bindingResult.getAllErrors().stream().forEach(System.out::println);
             return "patient-form";
         }
         patientRepository.save(patient);
-        return "redirect:/index?keyword=" + patient.getName();
+        return "redirect:/user/index?keyword=" + patient.getName();
     }
 
-    @GetMapping("/editPatient")
+    @GetMapping("/admin/editPatient")
     public String editPatient(Model model, @RequestParam(name = "id") Long id) {
         Patient patient = patientRepository.findById(id).get();
         model.addAttribute("patient", patient);

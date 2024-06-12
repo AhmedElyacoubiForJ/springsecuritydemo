@@ -24,21 +24,25 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         return new InMemoryUserDetailsManager(
                 User.withUsername("user1").password(passwordEncoder().encode("123")).roles("USER").build(),
-                User.withUsername("user2").password(passwordEncoder().encode("1234")).roles("USER").build(),
-                User.withUsername("admin").password(passwordEncoder().encode("123456")).roles("USER", "ADMIN").build()
+                User.withUsername("user2").password(passwordEncoder().encode("123")).roles("USER").build(),
+                User.withUsername("admin").password(passwordEncoder().encode("123")).roles("USER", "ADMIN").build()
         );
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
-
-        http.authorizeHttpRequests(authorize -> authorize
-                .anyRequest().authenticated()
-        );
-
-        http.formLogin(Customizer.withDefaults());
-        http.logout(Customizer.withDefaults());
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(Customizer.withDefaults())
+                .logout(Customizer.withDefaults())
+                .exceptionHandling(exHandlingConfigurer -> exHandlingConfigurer
+                                        .accessDeniedPage("/notAuthorized")
+                );
 
         return http.build();
     }

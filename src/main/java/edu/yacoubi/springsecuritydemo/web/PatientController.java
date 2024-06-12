@@ -57,7 +57,7 @@ public class PatientController {
     @PostMapping("/savePatient")
     public String savePatient(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().stream().forEach(System.out::println);
+            //bindingResult.getAllErrors().stream().forEach(System.out::println);
             return "patient-form";
         }
         patientRepository.save(patient);

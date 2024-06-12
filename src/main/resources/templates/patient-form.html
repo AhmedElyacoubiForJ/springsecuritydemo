@@ -10,70 +10,83 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="p-3">
-        <form th:action="@{/savePatient}" method="post">
-            <div class="mb-3 mt-3">
-                <label for="name" class="form-label">Name</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        name="name"
-                        th:value="${patient.name}"
-                        placeholder="Name"
-                >
-                <span
-                        class="text-danger"
-                        th:errors="${patient.name}"
-                ></span>
+    <div class="row mt-3">
+        <!-- bootstrap share the screen in 12 column -->
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header">Add new Patient</div>
+                <div class="card-body">
+
+
+                    <div class="p-3">
+                        <form th:action="@{/savePatient}" method="post">
+                            <div class="mb-3 mt-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="name"
+                                        name="name"
+                                        th:value="${patient.name}"
+                                        placeholder="Name"
+                                >
+                                <span
+                                        class="text-danger"
+                                        th:errors="${patient.name}"
+                                ></span>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="birthday" class="form-label">Birthday</label>
+                                <input
+                                        type="date"
+                                        class="form-control"
+                                        name="birthday"
+                                        id="birthday"
+                                        th:value="${patient.birthday}"
+                                        placeholder="Birthday">
+                                <span
+                                        class="text-danger"
+                                        th:errors="${patient.birthday}"
+                                ></span>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="sick" class="form-check-label">Sick</label>
+                                <input
+                                        type="checkbox"
+                                        class="form-check-input"
+                                        name="sick"
+                                        id="sick"
+                                        th:checked="${patient.sick}">
+                                <span
+                                        class="text-danger"
+                                        th:errros="${patient.sick}"
+                                ></span>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="score" class="form-label">Score</label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        name="score"
+                                        id="score"
+                                        th:value="${patient.score}"
+                                        placeholder="Score"
+                                >
+                                <span
+                                        class="text-danger"
+                                        th:errors="${patient.score}"
+                                ></span>
+                            </div>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </form>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="mb-3 mt-3">
-                <label for="birthday" class="form-label">Birthday</label>
-                <input
-                        type="date"
-                        class="form-control"
-                        name="birthday"
-                        id="birthday"
-                        th:value="${patient.birthday}"
-                        placeholder="Birthday">
-                <span
-                        class="text-danger"
-                        th:errors="${patient.birthday}"
-                ></span>
-            </div>
-            <div class="mb-3 mt-3">
-                <label for="sick" class="form-check-label">Sick</label>
-                <input
-                        type="checkbox"
-                        class="form-check-input"
-                        name="sick"
-                        id="sick"
-                        th:checked="${patient.sick}">
-                <span
-                        class="text-danger"
-                        th:errros="${patient.sick}"
-                ></span>
-            </div>
-            <div class="mb-3 mt-3">
-                <label for="score" class="form-label">Score</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        name="score"
-                        id="score"
-                        th:value="${patient.score}"
-                        placeholder="Score"
-                >
-                <span
-                        class="text-danger"
-                        th:errors="${patient.score}"
-                ></span>
-            </div>
-            <button type="submit" class="btn btn-success">Save</button>
-        </form>
+        </div>
     </div>
+
 </div>
-
-
 </body>
 </html>

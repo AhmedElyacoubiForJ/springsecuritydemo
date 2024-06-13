@@ -14,12 +14,16 @@ spring:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
     initialization-mode: always
+  sql:
+    init:
+      mode: always #execute schema.sql
   jpa:
+    defer-datasource-initialization: true #conf in relation with execute schema.sql
     open-in-view: false
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         temp:

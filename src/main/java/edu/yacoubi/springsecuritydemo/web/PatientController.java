@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,7 @@ public class PatientController {
         return "patients";
     }
     @GetMapping("/admin/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String delete(
             @RequestParam(name = "id") Long id,
             @RequestParam(name = "keyword", defaultValue = "") String keyword ,
@@ -49,15 +51,16 @@ public class PatientController {
     }
 
     @GetMapping("/admin/patient-form")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String patientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "patient-form";
     }
 
     @PostMapping("/admin/savePatient")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String savePatient(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            //bindingResult.getAllErrors().stream().forEach(System.out::println);
             return "patient-form";
         }
         patientRepository.save(patient);
@@ -65,6 +68,7 @@ public class PatientController {
     }
 
     @GetMapping("/admin/editPatient")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editPatient(Model model, @RequestParam(name = "id") Long id) {
         Patient patient = patientRepository.findById(id).get();
         model.addAttribute("patient", patient);

@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
@@ -39,15 +41,28 @@ public class Application {
             JdbcUserDetailsManager jdbcUserDetailsManager,
             PasswordEncoder encoder) {
         return args -> {
-            jdbcUserDetailsManager.createUser(
-                    User.withUsername("user1").password(encoder.encode("123")).roles("USER").build()
-            );
-            jdbcUserDetailsManager.createUser(
-                    User.withUsername("user2").password(encoder.encode("123")).roles("USER").build()
-            );
-            jdbcUserDetailsManager.createUser(
-                    User.withUsername("admin").password(encoder.encode("123")).roles("USER", "ADMIN").build()
-            );
+            // per default user is enabled
+            try {
+                UserDetails user1 = jdbcUserDetailsManager.loadUserByUsername("user1");
+            } catch (UsernameNotFoundException e) {
+                jdbcUserDetailsManager.createUser(
+                        User.withUsername("user1").password(encoder.encode("123")).roles("USER").build()
+                );
+            }
+            try {
+                UserDetails user2 = jdbcUserDetailsManager.loadUserByUsername("user2");
+            } catch (UsernameNotFoundException e) {
+                jdbcUserDetailsManager.createUser(
+                        User.withUsername("user2").password(encoder.encode("123")).roles("USER").build()
+                );
+            }
+            try {
+                UserDetails admin = jdbcUserDetailsManager.loadUserByUsername("admin");
+            } catch (UsernameNotFoundException e) {
+                jdbcUserDetailsManager.createUser(
+                        User.withUsername("admin").password(encoder.encode("123")).roles("USER", "ADMIN").build()
+                );
+            }
         };
     }
 }

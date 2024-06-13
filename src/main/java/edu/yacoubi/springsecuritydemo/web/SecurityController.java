@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SecurityController {
 
-    @GetMapping("/notAuthorized")
+    @GetMapping("/access-denied")
     public String notAuthorized() {
-        return "not-authorized";
+        return "access-denied";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }

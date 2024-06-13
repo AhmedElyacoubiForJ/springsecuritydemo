@@ -34,15 +34,21 @@ public class SecurityConfig {
             throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/webjars/**", "/register/**", "/h2-console/**").permitAll()
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(formCustomizer -> formCustomizer
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/")
+                        .permitAll()
+                )
                 .logout(Customizer.withDefaults())
-                .exceptionHandling(exHandlingConfigurer -> exHandlingConfigurer
-                                        .accessDeniedPage("/notAuthorized")
-                );
+                .exceptionHandling(exceptionHandlingCustomizer -> exceptionHandlingCustomizer
+                        .accessDeniedPage("/access-denied")
+                )
+                .rememberMe(Customizer.withDefaults());
 
         return http.build();
     }

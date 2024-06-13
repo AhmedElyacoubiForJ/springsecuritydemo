@@ -34,7 +34,7 @@ public class SecurityConfig {
         );
     }
 
-    // JDBC Manager
+    // JDBC Manager JdbcUserDetailsManager Strategy
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);

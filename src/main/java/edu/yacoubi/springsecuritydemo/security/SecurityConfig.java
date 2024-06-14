@@ -32,8 +32,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/webjars/**", "/register/**", "/h2-console/**").permitAll()
-                        //.requestMatchers("/user/**").hasRole("USER")
-                        //.requestMatchers("/admin/**").hasRole("ADMIN")
+                        //.requestMatchers("/user/**").hasAuthority("USER")
+                        //.requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(formCustomizer -> formCustomizer
@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandlingCustomizer -> exceptionHandlingCustomizer
                         .accessDeniedPage("/access-denied")
                 )
-                .rememberMe(Customizer.withDefaults())
+                //.rememberMe(Customizer.withDefaults())
                 .userDetailsService(userDetailsService);
         return http.build();
     }

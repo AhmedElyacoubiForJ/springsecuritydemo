@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,30 +30,34 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User username %s found", username));
         }
         // first approach
-        String[] roles = appUser.getRoles().stream().map(r -> r.getRole()).toArray(String[]::new);
+//        String[] roles = appUser.getRoles().stream().map(r -> r.getRole()).toArray(String[]::new);
+//        UserDetails userDetails = User
+//                .withUsername(appUser.getUsername())
+//                .password(appUser.getPassword())
+//                .roles(roles)
+//                .build();
+
+        // second approach
+        List<SimpleGrantedAuthority> authorities = appUser
+                .getRoles()
+                .stream()
+                .map(appRole -> new SimpleGrantedAuthority(appRole.getRole()))
+                .collect(Collectors.toList());
+
         UserDetails userDetails = User
                 .withUsername(appUser.getUsername())
                 .password(appUser.getPassword())
-                .roles(roles)
+                .authorities(authorities)
                 .build();
 
-        // second approach
-//        AppUserDetails appUserDetails = new AppUserDetails(
+        // third approach
+//        AppUserDetails userDetails = new AppUserDetails(
 //                appUser.getUsername(),
 //                appUser.getPassword(),
 //                appUser.getRoles().stream()
 //                       .map(appRole -> new SimpleGrantedAuthority(appRole.getRole()))
 //                       .collect(Collectors.toList())
 //        );
-        // third approach
-//        UserDetails userDetails = User
-//                .withUsername(appUser.getUsername())
-//                .password(appUser.getPassword())
-//                .authorities(
-//                        appUser.getRoles().stream()
-//                                .map(appRole -> new SimpleGrantedAuthority(appRole.getRole()))
-//                                .collect(Collectors.toList())
-//                ).build();
 
         return userDetails;
     }

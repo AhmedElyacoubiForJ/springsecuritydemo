@@ -31,7 +31,7 @@
                         <th>Birthday</th>
                         <th>Sick</th>
                         <th>Score</th>
-                        <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}" colspan="2">Actions</th>
+                        <th th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" colspan="2">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -41,7 +41,7 @@
                         <td th:text="${patient.birthday}"></td>
                         <td th:text="${patient.sick}"></td>
                         <td th:text="${patient.score}"></td>
-                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                             <a
                                     onclick="javascript:return confirm('Please confirm before to delete?')"
                                     th:href="@{/admin/delete( id=${patient.id}, keyword=${keyword}, page=${currentPage} )}"
@@ -50,7 +50,7 @@
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
-                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                             <a
                                     th:href="@{/admin/editPatient(id=${patient.id})}"
                                     class="btn btn-success"

@@ -41,7 +41,7 @@ public class PatientController {
         return "patients";
     }
     @GetMapping("/admin/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String delete(
             @RequestParam(name = "id") Long id,
             @RequestParam(name = "keyword", defaultValue = "") String keyword ,
@@ -51,14 +51,14 @@ public class PatientController {
     }
 
     @GetMapping("/admin/patient-form")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String patientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "patient-form";
     }
 
     @PostMapping("/admin/savePatient")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String savePatient(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "patient-form";
@@ -68,7 +68,7 @@ public class PatientController {
     }
 
     @GetMapping("/admin/editPatient")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editPatient(Model model, @RequestParam(name = "id") Long id) {
         Patient patient = patientRepository.findById(id).get();
         model.addAttribute("patient", patient);

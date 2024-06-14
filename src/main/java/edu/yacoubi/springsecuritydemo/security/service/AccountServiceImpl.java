@@ -86,4 +86,9 @@ public class AccountServiceImpl implements AccountService {
     public AppUser loadUserByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
+
+    @Override
+    public Optional<AppRole> getAppRoleById(String name) {
+        return appRoleRepository.findById(name);
+    }
 }

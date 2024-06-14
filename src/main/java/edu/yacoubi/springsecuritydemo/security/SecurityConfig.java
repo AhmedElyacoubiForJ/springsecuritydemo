@@ -1,16 +1,15 @@
 package edu.yacoubi.springsecuritydemo.security;
 
+import edu.yacoubi.springsecuritydemo.security.service.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
@@ -18,26 +17,13 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    //@Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        return new InMemoryUserDetailsManager(
-                User.withUsername("user1").password(passwordEncoder().encode("123")).roles("USER").build(),
-                User.withUsername("user2").password(passwordEncoder().encode("123")).roles("USER").build(),
-                User.withUsername("admin").password(passwordEncoder().encode("123")).roles("USER", "ADMIN").build()
-        );
-    }
-
-    // JDBC Manager JdbcUserDetailsManager Strategy
-    @Bean
-    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
@@ -59,8 +45,8 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandlingCustomizer -> exceptionHandlingCustomizer
                         .accessDeniedPage("/access-denied")
                 )
-                .rememberMe(Customizer.withDefaults());
-
+                .rememberMe(Customizer.withDefaults())
+                .userDetailsService(userDetailsService);
         return http.build();
     }
 }
